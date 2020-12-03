@@ -103,12 +103,150 @@ int solution(vector<vector<string>> clothes) {
 <img src="3.jpeg" width=400>
 
 
-1. [문제]() 
+4. [문제](https://programmers.co.kr/learn/courses/30/lessons/42584) 
 - 풀이: 
+```
+#include <string>
+#include <vector>
+#include <stack>
+#include <iostream>
+
+using namespace std;
+
+vector<int> solution(vector<int> prices) {
+    vector<int> answer(prices.size(), 0);
+    stack<pair<int, int>> s;
+    
+    for(int i = 0; i < prices.size(); i++){
+        if(s.empty() || s.top().first <= prices[i]){
+            s.push({prices[i], i});
+        }else{
+            while(!s.empty() && s.top().first > prices[i]){
+                pair<int, int> p = s.top();
+                s.pop();
+                answer[p.second] = i - p.second;  
+            }   
+            s.push({prices[i], i});
+        }
+    }
+    
+    while(!s.empty()){
+        pair<int, int> p = s.top();
+        s.pop();
+        answer[p.second] = prices.size() - 1 - p.second;
+    }
+    
+    
+    return answer;
+}
+```
 - 손코딩:
+<img src="4.jpeg" width=400>
 
 
 
 5. [문제]() 
+- 풀이:
+```
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+vector<int> solution(vector<int> progresses, vector<int> speeds) {
+    vector<int> answer;
+    vector<int> check(progresses.size(), 0);
+    
+    for(int i = 0; i < progresses.size(); i++){
+        int left = 100 - progresses[i];
+        if(left % speeds[i] == 0){
+            check[i] = left / speeds[i];
+        }else{
+            check[i] = left / speeds[i] + 1;
+        }
+    }
+    
+    int i = 1; 
+    int c = 1; 
+    int index = 0; 
+    while(i < progresses.size()){
+        if(check[i] > check[index]){
+            answer.push_back(c);
+            c = 1;
+            index = i;
+        }else{
+            c++;
+        }
+        i++;
+    }
+    
+    answer.push_back(c);
+    
+    return answer;
+}
+```
+
+- 손코딩:
+<img src="5.jpeg" width=400>
+
+6. [문제](https://programmers.co.kr/learn/courses/30/lessons/42583) 
+- 풀이: (https://programmers.co.kr/learn/courses/30/lessons/42583/solution_groups?language=cpp)
+  뭔가 암만봐도 안풀렸음. 그리구 손코딩이랑은 다르게, 실제로했을땐 계속 오류가 났음. 예전에 풀었던건데도 이러넴 ㅎ
+```
+#include <string>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+int solution(int bridge_length, int weight, vector<int> truck_weights) {
+    int answer = 0;
+    int tot_w = 0;
+    int t_front = 0;
+    int t_cur = 0;
+    int sec = 0;
+    
+    queue<int> q;
+    
+    while(t_front != truck_weights.size()){
+        if(!q.empty() && (sec - q.front() == bridge_length)){
+            tot_w -= truck_weights[t_front];
+            ++t_front;
+            q.pop();
+        } 
+        
+        if(t_cur != truck_weights.size() && tot_w + truck_weights[t_cur] <= weight){
+            tot_w += truck_weights[t_cur];
+            ++t_cur;
+            q.push(sec);
+        }
+        ++sec;
+    }
+    
+    answer = sec;
+    return answer;
+}
+```
+
+우와 이사람 진짜 똑똑하구만. 
+
+- 손코딩:
+<img src="6.jpeg" width=400>
+
+<!-- 
+1. [문제]() 
 - 풀이: 
 - 손코딩:
+<img src="4.jpeg" width=400>
+
+1. [문제]() 
+- 풀이: 
+- 손코딩:
+<img src="4.jpeg" width=400>
+
+
+
+1. [문제]() 
+- 풀이: 
+- 손코딩:
+<img src="4.jpeg" width=400> -->
