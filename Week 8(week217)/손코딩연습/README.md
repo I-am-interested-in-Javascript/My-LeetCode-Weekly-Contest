@@ -233,6 +233,147 @@ int solution(int bridge_length, int weight, vector<int> truck_weights) {
 - 손코딩:
 <img src="6.jpeg" width=400>
 
+7. [문제](https://programmers.co.kr/learn/courses/30/lessons/43165) 
+- 풀이: 
+```
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int answer = 0; 
+
+void recursive(int index, int total, vector<int> numbers, int target){
+    if(index >= numbers.size()){
+        if(total == target){
+            answer++;
+        }
+        return;
+    }
+    
+    recursive(index+1, total + numbers[index], numbers, target);
+    recursive(index+1, total - numbers[index], numbers, target);   
+}
+
+int solution(vector<int> numbers, int target) {
+
+    recursive(0, 0, numbers, target);
+    
+    return answer;
+}
+```
+
+- 손코딩:
+<img src="7.jpeg" width=400>
+
+8. [문제](https://programmers.co.kr/learn/courses/30/lessons/43162) 
+- 풀이: 
+```
+#include <string>
+#include <vector>
+#include <queue>
+
+using namespace std;
+vector<int> visited(201, 0);
+
+void bfs(int start, int n, vector<vector<int>> computers){
+    queue<int> q;
+    q.push(start);
+    
+    while(!q.empty()){
+        int next = q.front();
+        q.pop();
+        
+        for(int i = 1; i <= n; i++){
+            if(computers[next-1][i-1] == 1 && visited[i] == 0){
+                visited[i] = 1;
+                q.push(i);
+            }
+        }
+    }
+}
+
+int solution(int n, vector<vector<int>> computers) {
+    int answer = 0;
+    
+    for(int i = 1; i <= n; i++){
+        if(visited[i] == 0){
+            visited[i] = 1;
+            answer++;
+            bfs(i, n, computers);
+        }
+    }
+
+    return answer;
+}
+```
+
+- 손코딩:
+<img src="8.jpeg" width=400>
+
+
+9. [문제](https://programmers.co.kr/learn/courses/30/lessons/43163) 
+- 풀이: 
+```
+#include <string>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+bool is_connected(string word1, string word2){
+    int count = 0;
+    
+    for(int i = 0; i < word1.size(); i++){
+        if(word1[i] != word2[i]){
+            count++;
+            if(count > 1){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+vector<int> visited(52, -1); // words의 각 인덱스, 마지막에 시작하는 begin 값
+
+int bfs(string begin, string target, vector<string> words){
+    queue<int> q;
+    q.push(words.size()); //visited의 인덱스를 집어 넣기
+    visited[words.size()] = 0; // 거리를 넣을 것, 초기화를 -1로 했음
+    words.push_back(begin); // 시작점도 words에 넣음
+    
+    while(!q.empty()){
+        int next = q.front();
+        q.pop();
+        
+        if(words[next] == target){
+            return visited[next];    
+        }
+        
+        for(int i = 0; i < words.size() - 1; i++){
+            if(visited[i] == -1 && is_connected(words[next], words[i])){
+                q.push(i);
+                visited[i] = visited[next] + 1;
+            }
+        }  
+    }
+    
+    return 0; 
+}
+
+int solution(string begin, string target, vector<string> words) {
+    int answer = 0;
+    
+    answer = bfs(begin, target, words);
+     
+    return answer;
+}
+```
+
+- 손코딩:
+<img src="9.jpeg" width=400>
+
 <!-- 
 1. [문제]() 
 - 풀이: 
