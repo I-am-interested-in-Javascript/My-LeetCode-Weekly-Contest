@@ -374,6 +374,67 @@ int solution(string begin, string target, vector<string> words) {
 - 손코딩:
 <img src="9.jpeg" width=400>
 
+
+10. [문제](https://programmers.co.kr/learn/courses/30/lessons/42839#) 
+- 풀이: 소수 sqrt해서 제곱근까지만 구해라. 복잡도 너무 올라감. 
+```
+#include <string>
+#include <vector>
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+bool can_make(int n, vector<int> arr){
+    string s = to_string(n);
+        
+    for(int i = 0; i < s.size(); i++){
+        if(arr[s[i]-'0'] > 0){
+            arr[s[i]-'0']--;
+        } else {
+            return false;
+        } 
+    }
+ 
+    return true;
+}
+
+int solution(string numbers) {
+    int answer = 0;
+    int range = 0;
+    vector<int> arr(10, 0);
+    
+    for(int i = 0; i < numbers.size(); i++){
+        range = range * 10 + 9;
+        arr[numbers[i]-'0']++;
+    }
+    
+    vector<bool> prime(range+1, true);
+    prime[0] = false; prime[1] = false;
+    
+    for(int i = 2; i <= sqrt(range); i++){
+        if(prime[i] == false){
+            continue;
+        }
+        for(int j = i*i; j <= range; j += i){    
+            prime[j] = false;
+        }
+    }
+    
+    for(int i = 2; i <= range; i++){
+        if(prime[i] && can_make(i, arr)){
+            answer++;
+        }
+    }
+    
+    return answer;
+}
+```
+
+- 손코딩:
+<img src="10-1.jpeg" width=400>
+<img src="10-2.jpeg" width=400>
+<img src="10-3.jpeg" width=400>
+
 <!-- 
 1. [문제]() 
 - 풀이: 
