@@ -435,6 +435,127 @@ int solution(string numbers) {
 <img src="10-2.jpeg" width=400>
 <img src="10-3.jpeg" width=400>
 
+11. [문제](https://programmers.co.kr/learn/courses/30/lessons/42842) 
+- 풀이: 
+```
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(int brown, int yellow) {
+    vector<int> answer;
+    
+    for(int i = 3; i <= brown; i++){
+        int x = i;
+        int y = brown/2 + 2 - i;
+        
+        if(x * y - brown == yellow){
+            answer.push_back(y);
+            answer.push_back(x);
+            break;
+        }  
+    }
+    return answer;
+}
+```
+
+- 손코딩:
+<img src="11-1.jpeg" width=400>
+<img src="11-2.jpeg" width=400>
+
+
+12. [문제](https://programmers.co.kr/learn/courses/30/lessons/43105) 
+- 풀이: 
+```
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<vector<int>> triangle) {
+    int answer = 0;
+    int height = triangle.size();
+    
+    vector<vector<int>> D;
+    for(int i = 0; i < height; i++){
+        D.push_back(vector<int> (i+1, 0));
+    }
+    D[0][0] = triangle[0][0];
+    
+    for(int i = 1; i < height; i++){
+        int width = i + 1;
+        D[i][0] = D[i-1][0] + triangle[i][0];
+        for(int j = 1; j < width-1; j++){
+            D[i][j] = max(D[i-1][j-1], D[i-1][j]) + triangle[i][j];
+        }
+        D[i][width-1] = D[i-1][width-2] + triangle[i][width-1];
+    }
+    
+    for(int i = 0; i < triangle[height-1].size(); i++){
+        if(answer < D[height-1][i]){
+            answer = D[height-1][i];
+        }
+    }
+    return answer;
+}
+```
+
+- 손코딩:
+<img src="12-1.jpeg" width=400>
+<img src="12-2.jpeg" width=400>
+
+
+13. [문제](https://programmers.co.kr/learn/courses/30/lessons/42898) 
+- 풀이:
+```
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+int solution(int m, int n, vector<vector<int>> puddles) {
+    int answer = 0;
+    int div = 1000000007;
+    
+    vector<vector<int>> arr(m + 1, vector<int> (n + 1, 0));
+    vector<vector<int>> d(m + 1, vector<int> (n + 1, 0));
+    
+    for(int i = 0; i < puddles.size(); i++){
+        arr[puddles[i][0]][puddles[i][1]] = 1;
+    }
+    
+    d[1][1] = 1;
+    
+    for(int i = 2; i < m+1; i++){
+        if(arr[i][1] != 1){
+            d[i][1] = d[i-1][1] % div;
+        }
+    }
+    
+    for(int i = 2; i < n+1; i++){
+        if(arr[1][i] != 1){
+            d[1][i] = d[1][i-1] % div;
+        }
+    }
+        
+    for(int i = 2; i < m+1; i++){
+        for(int j = 2; j < n+1; j++){           
+            if(arr[i][j] != 1){
+                d[i][j] = (d[i-1][j] + d[i][j-1])%div;
+            }
+        }
+    }
+        
+    answer = d[m][n] % div;
+    return answer;
+}
+```
+ 
+- 손코딩:
+<img src="13-1.jpeg" width=400>
+<img src="13-2.jpeg" width=400>
+
 <!-- 
 1. [문제]() 
 - 풀이: 
