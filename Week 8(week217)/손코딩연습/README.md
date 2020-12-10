@@ -551,10 +551,13 @@ int solution(int m, int n, vector<vector<int>> puddles) {
     return answer;
 }
 ```
- 
+
 - 손코딩:
 <img src="13-1.jpeg" width=400>
 <img src="13-2.jpeg" width=400>
+
+// TODO: 브루트 포스 연습하기 
+https://drive.google.com/drive/folders/12qwY1DshUcsqGLW2DQZeorXrPzRqhWxN
 
 <!-- 
 1. [문제]() 
