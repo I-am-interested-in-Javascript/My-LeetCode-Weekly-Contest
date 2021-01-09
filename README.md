@@ -1,6 +1,9 @@
-# My-LeetCode-Weekly-Contest
+# My-LeetCode-Weekly-Contest(2020)
 Leetcode Weekly Study \
 Sometimes [Baekjoon](https://www.acmicpc.net/) or [Programmers](https://programmers.co.kr/)
+
+## 2020 알고리즘 마무리
+2020에 알고리즘을 많이 공부했다. 아직도 부족한 점이 있지만, 재밌다. 여튼 여기서 이만 이 리포는 정리하려고 한다!
 
 ## Purpose
 알고리즘 공부도 하다보니까 재밌는 부분이 있네요. 놀랍다!!
